@@ -1,0 +1,27 @@
+name: deploy_az
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy_az:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@main
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      
+      - name: Login to ACR
+        run: az acr login --name mmpcontainerregistry
+      
+      - name: Build Docker image
+        run: docker build --platform linux/amd64 -t mmpcontainerregistry.azurecr.io/messiah-meal-planner .
+
+      - name: Push Docker image
+        run: docker push mmpcontainerregistry.azurecr.io/messiah-meal-planner
