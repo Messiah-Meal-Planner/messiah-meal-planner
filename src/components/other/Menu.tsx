@@ -193,7 +193,7 @@ const Menu = () => {
           </a>
           <br />
           <a
-            href='https://github.com/nickslick03/messiah-meal-planner'
+            href='https://github.com/Messiah-Meal-Planner/messiah-meal-planner'
             className='text-indigo-900 underline dark:text-indigo-300'
             target='_blank'
           >
